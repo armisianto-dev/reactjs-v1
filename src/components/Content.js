@@ -51,16 +51,22 @@ class Content extends Component {
               <span className="navbar-toggler-icon icon-bar"></span>
               <span className="navbar-toggler-icon icon-bar"></span>
             </button>
-            <div className="collapse navbar-collapse justify-content-end">
-              <ul className="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-                <NavDropdown name="Armisianto">
-                  <a className="dropdown-item" href="/">Profile</a>
-                  <a className="dropdown-item" href="/">Account Settings</a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item text-danger" href="/"> <i className="fa fa-sign-out mr-1"></i> Sign Out</a>
-                </NavDropdown>
-              </ul>
-            </div>
+            <ul className="navbar-nav">
+              <li className="nav-item dropdown">
+                <a className="nav-link" href="/" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src={user_img} className="rounded-circle mr-2" alt="Logo" width="24" />
+                  <p className="d-lg-none d-md-block">
+                    Armisianto
+                  </p>
+                </a>
+                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                  <a className="dropdown-item" href="#">Profile</a>
+                  <a className="dropdown-item" href="#">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a className="dropdown-item text-danger" href="#"> <i className="fa fa-sign-out mr-1"></i> Log out</a>
+                </div>
+              </li>
+            </ul>
           </div>
         </nav>
         {/* End of navbar */}
