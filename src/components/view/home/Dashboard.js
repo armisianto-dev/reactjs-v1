@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
 
 class Dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      lapJaldins: [],
+      isLoaded: false
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/dashboard/lap_jaldin/134/2016')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          isLoaded: true,
+          lapJaldins: data.values,
+        })
+      })
+  }
+
   render() {
+
+    var { isLoaded, lapJaldins } = this.state;
+
     return (
       <div className="row">
         <div className="col-md-4">
           <div className="card card-stats">
+            {this.state.lapJaldins.map(lapJaldin =>
             <div className="card-header card-header-info card-header-icon">
               <div className="card-icon">
                 <i className="fa fa-file-text-o"></i>
               </div>
               <p className="card-category">Laporan Perjalanan Dinas</p>
-              <h3 className="card-title">97/100
+                <h3 className="card-title">{lapJaldin.lap_finish}/{lapJaldin.total_lap}
                 <small> Lap</small>
               </h3>
             </div>
+            )}
             <div className="card-footer">
               <div className="stats float-right">
                 <a href="#pablo">Detail...</a>

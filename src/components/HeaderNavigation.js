@@ -49,7 +49,30 @@ class NavDropdown extends Component {
 }
 
 class HeaderNavigation extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: [],
+      isLoaded: false
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/users/134')
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          isLoaded: true,
+          user: json.value,
+        })
+      })
+  }
+
   render() {
+
+    var { isLoaded, user } = this.state;
+
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="/"><img src={logo} alt="Logo" width="180" /></a>
@@ -67,6 +90,8 @@ class HeaderNavigation extends Component {
           </ul>
           <ul className="navbar-nav flex-row ml-md-auto d-none d-md-flex">
             <NavDropdown name="Armisianto">
+              <a className="dropdown-item" href="/">{user.full_name}</a>
+              <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="/">Profile</a>
               <a className="dropdown-item" href="/">Account Settings</a>
               <div className="dropdown-divider"></div>
