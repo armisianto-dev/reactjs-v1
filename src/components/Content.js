@@ -9,6 +9,7 @@ class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userImg: '',
       user: [],
       isLoaded: false
     }
@@ -21,13 +22,14 @@ class Content extends Component {
         this.setState({
           isLoaded: true,
           user: data.values[0],
+          userImg: "http://202.91.14.3/te/resource/doc/images/users/"+data.values[0].employee_img,
         })
       })
   }
 
   render() {
 
-    var { isLoaded, user } = this.state;
+    var { isLoaded, user, userImg } = this.state;
 
     return (
       <div className="main-panel ps-container ps-theme-default ps-active-y" data-ps-id="f3e259fc-aa59-2422-b125-134102db0bc2">
@@ -47,7 +49,7 @@ class Content extends Component {
               <ul className="navbar-nav">
                 <li className="nav-item dropdown">
                   <a className="nav-link" href="/" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="http://202.91.14.3/te/resource/doc/images/users/134.jpg" className="rounded-circle mr-2" alt="Logo" width="24" height="24" />
+                    <img src={userImg} className="rounded-circle mr-2" alt="Logo" width="24" height="24" />
                     <p className="d-lg-none d-md-block">
                       {user.full_name}
                     </p>
