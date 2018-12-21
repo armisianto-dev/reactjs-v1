@@ -1,20 +1,42 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-import HomeDashboard from './view/home/Dashboard';
+import StaffDashboard from './view/dashboard/Welcome';
 
-const Index = () => <HomeDashboard/>;
-const Pengajuan = () => <h2>Pengajuan</h2>;
-const Monitoring = () => <h2>Monitoring</h2>;
+const StaffTaskManager = () => <h2>Task Manager</h2>;
+const StaffReport = () => <h2>Report</h2>;
 
 class ContentDynamic extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      listMenu: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/staff-base/list_menu/134/0')
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          listMenu: data.values
+        })
+      })
+  }
+
   render() {
+
+    var { listMenu } = this.state;
+
     return (
       <div>
-        <Route path="/" exact component={Index} />
-        <Route path="/pengajuan/" component={Pengajuan} />
-        <Route path="/monitoring/" component={Monitoring} />
+        <Switch>
+          <Route path="/" exact component={StaffDashboard} />
+          <Route path="/pengajuan" component={StaffTaskManager} />
+          <Route path="/monitoring" component={StaffReport} />
+        </Switch>
       </div>
     );
   }

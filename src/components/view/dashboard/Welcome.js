@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-class Dashboard extends Component {
-
+class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lapJaldins: [],
+      lapJaldin: [],
       isLoaded: false
     }
   }
@@ -16,30 +15,28 @@ class Dashboard extends Component {
       .then(data => {
         this.setState({
           isLoaded: true,
-          lapJaldins: data.values,
+          lapJaldin: data.values[0],
         })
       })
   }
 
   render() {
 
-    var { isLoaded, lapJaldins } = this.state;
+    var { isLoaded, lapJaldin } = this.state;
 
     return (
       <div className="row">
         <div className="col-md-4">
           <div className="card card-stats">
-            {this.state.lapJaldins.map(lapJaldin =>
             <div className="card-header card-header-info card-header-icon">
               <div className="card-icon">
-                <i className="fa fa-file-text-o"></i>
+                <i className="fa fa-file-invoice-dollar "></i>
               </div>
               <p className="card-category">Laporan Perjalanan Dinas</p>
-                <h3 className="card-title">{lapJaldin.lap_finish}/{lapJaldin.total_lap}
+              <h3 className="card-title">{lapJaldin.lap_finish}/{lapJaldin.total_lap}
                 <small> Lap</small>
               </h3>
             </div>
-            )}
             <div className="card-footer">
               <div className="stats float-right">
                 <a href="#pablo">Detail...</a>
@@ -69,7 +66,7 @@ class Dashboard extends Component {
           <div className="card card-stats">
             <div className="card-header card-header-dark card-header-icon">
               <div className="card-icon">
-                <i className="fa fa-sign-out"></i>
+                <i className="fa fa-sign-out-alt"></i>
               </div>
               <p className="card-category">Izin</p>
               <h3 className="card-title">5
@@ -88,4 +85,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default Welcome;
