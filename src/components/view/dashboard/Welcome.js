@@ -4,8 +4,7 @@ class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lapJaldin: [],
-      isLoaded: false
+      lapJaldin: []
     }
   }
 
@@ -14,7 +13,6 @@ class Welcome extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          isLoaded: true,
           lapJaldin: data.values[0],
         })
       })

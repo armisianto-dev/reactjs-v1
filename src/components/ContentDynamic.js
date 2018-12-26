@@ -34,7 +34,7 @@ class ContentDynamic extends Component {
       <div>
         <Switch>
           <Route path="/" exact component={StaffDashboard} />
-          <Route path="/pengajuan" component={StaffTaskManager} />
+          <Route path="/task/mytask" component={StaffTaskManager} />
           <Route path="/monitoring" component={StaffReport} />
         </Switch>
       </div>
