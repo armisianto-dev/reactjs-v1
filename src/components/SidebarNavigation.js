@@ -64,6 +64,8 @@ class SidebarNavigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userImg: '',
+      user: [],
       listMenu: [],
       childMenu: []
     }
@@ -77,11 +79,22 @@ class SidebarNavigation extends Component {
           listMenu: data.values
         })
       })
+
+    API.get('users/134')
+      .then(response => {
+        const data = response.data;
+        this.setState({
+          user: data.values[0],
+          userImg: "http://202.91.14.3/te/resource/doc/images/users/" + data.values[0].employee_img,
+        })
+      }).catch((error) => {
+        console.log(error);
+      })
   }
 
   render() {
 
-    var { listMenu } = this.state;
+    var { listMenu, user, userImg } = this.state;
 
     return (
       <div className="sidebar" data-color="azure" data-background-color="white" data-image={sidebar_img}>
@@ -91,6 +104,47 @@ class SidebarNavigation extends Component {
           </a>
         </div>
         <div className="sidebar-wrapper">
+          <div className="user">
+            <div className="photo">
+              <img src={userImg} />
+            </div>
+            <div className="user-info">
+              <a data-toggle="collapse" href="#collapseExample" className="username collapsed" aria-expanded="false">
+                <span>
+                  {user.full_name}
+                  <b className="caret"></b>
+                </span>
+              </a>
+              <div className="collapse" id="collapseExample">
+                <ul className="nav">
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      <span className="sidebar-mini"> <i className="fa fa-user mr-5"></i> </span>
+                      <span className="sidebar-normal"> My Profile </span>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      <span className="sidebar-mini"> <i className="fa fa-user-edit mr-5"></i> </span>
+                      <span className="sidebar-normal"> Edit Profile </span>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      <span className="sidebar-mini"> <i className="fa fa-cog mr-5"></i> </span>
+                      <span className="sidebar-normal"> Settings </span>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link text-danger" href="#">
+                      <span className="sidebar-mini"> <i className="fa fa-sign-out-alt mr-5"></i> </span>
+                      <span className="sidebar-normal"> Sign Out </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <ul className="nav">
             {this.state.listMenu.map(menu =>
               <NavItem navChild={menu.total_child} navId={menu.nav_id} navTitle={menu.nav_title} navIcon={menu.nav_icon} navLink={menu.nav_url} />

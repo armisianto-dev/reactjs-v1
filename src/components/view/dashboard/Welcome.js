@@ -5,7 +5,8 @@ class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lapJaldin: []
+      lapJaldin: [],
+      userLeave: []
     }
   }
 
@@ -17,11 +18,19 @@ class Welcome extends Component {
           lapJaldin: data.values[0],
         })
       })
+
+    API.get('dashboard/user_leave/134/2016')
+      .then( response => {
+        const data = response.data;
+        this.setState({
+          userLeave: data.values[0],
+        })
+      })
   }
 
   render() {
 
-    var { isLoaded, lapJaldin } = this.state;
+    var { lapJaldin, userLeave } = this.state;
 
     return (
       <div className="row">
@@ -50,7 +59,7 @@ class Welcome extends Component {
                 <i className="fa fa-calendar"></i>
               </div>
               <p className="card-category">Cuti</p>
-              <h3 className="card-title">9/12
+              <h3 className="card-title">{userLeave.total_cuti}/{userLeave.total_kuota_cuti}
                 <small> Hari</small>
               </h3>
             </div>
