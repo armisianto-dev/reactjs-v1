@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import API from '../api';
 
 import ContentDynamic from './ContentDynamic';
 
@@ -10,26 +11,26 @@ class Content extends Component {
     super(props);
     this.state = {
       userImg: '',
-      user: [],
-      isLoaded: false
+      user: []
     }
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/users/134')
-      .then(response => response.json())
-      .then(data => {
+    API.get('users/134')
+      .then(response => {
+        const data = response.data;
         this.setState({
-          isLoaded: true,
           user: data.values[0],
-          userImg: "http://202.91.14.3/te/resource/doc/images/users/"+data.values[0].employee_img,
+          userImg: "http://202.91.14.3/te/resource/doc/images/users/" + data.values[0].employee_img,
         })
+      }).catch((error)=>{
+        console.log(error);
       })
   }
 
   render() {
 
-    var { isLoaded, user, userImg } = this.state;
+    var { user, userImg } = this.state;
 
     return (
       <div className="main-panel ps-container ps-theme-default ps-active-y" data-ps-id="f3e259fc-aa59-2422-b125-134102db0bc2">

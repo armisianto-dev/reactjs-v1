@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import API from '../api';
 
 import StaffDashboard from './view/dashboard/Welcome';
 
@@ -17,13 +17,6 @@ class ContentDynamic extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/staff-base/list_menu/134/0')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          listMenu: data.values
-        })
-      })
   }
 
   render() {
@@ -33,7 +26,7 @@ class ContentDynamic extends Component {
     return (
       <div>
         <Switch>
-          <Route path="/" exact component={StaffDashboard} />
+          <Route path="/dashboard/welcome" exact component={StaffDashboard} />
           <Route path="/task/mytask" component={StaffTaskManager} />
           <Route path="/monitoring" component={StaffReport} />
         </Switch>

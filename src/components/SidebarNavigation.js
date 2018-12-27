@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import API from '../api';
 
 import logo from '../dist/images/logo-login.png';
 import user_img from '../dist/images/default-user.png';
@@ -23,7 +24,7 @@ const NavItem = props => {
 
   const pageURI = window.location.pathname + window.location.search
   const liClassName = (props.navLink === pageURI) ? "nav-item active" : "nav-item";
-  const aClassName = props.disabled ? "nav-link disabled" : "nav-link"
+  const aClassName = (props.navLink === pageURI) ? "nav-link disabled" : "nav-link";
 
   const navChild = props.navChild;
   var navId = props.navId;
@@ -69,9 +70,9 @@ class SidebarNavigation extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/staff-base/list_menu/134/0')
-      .then(response => response.json())
-      .then(data => {
+    API.get('staff-base/list_menu/134/0')
+      .then(response => {
+        const data = response.data;
         this.setState({
           listMenu: data.values
         })
@@ -120,9 +121,9 @@ class NavItemChild extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/staff-base/list_menu/134/' + this.props.parentId)
-      .then(response => response.json())
-      .then(data => {
+    API.get('staff-base/list_menu/134/' + this.props.parentId)
+      .then(response => {
+        const data = response.data;
         this.setState({
           listMenu: data.values
         })

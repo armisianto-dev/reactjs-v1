@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import API from '../../../api'
 
 class Welcome extends Component {
   constructor(props) {
@@ -9,9 +10,9 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/dashboard/lap_jaldin/134/2016')
-      .then(response => response.json())
-      .then(data => {
+    API.get('dashboard/lap_jaldin/134/2016')
+      .then( response => {
+        const data = response.data;
         this.setState({
           lapJaldin: data.values[0],
         })
