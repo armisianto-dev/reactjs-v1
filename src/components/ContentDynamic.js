@@ -49,13 +49,13 @@ class ContentDynamic extends Component {
             loader: () => import('./view/dashboard/Welcome'),
             loading: PaceLoading
           })
-        } />
+        } onEnter={requireAuth} />
 
         <Route path="/login" component={Login} />
 
         {this.state.listMenu.map(menu =>
           // <RouteItem routePath={menu.nav_url} routeComponent={menu.nav_component} />
-          <IndexRoute  path={menu.nav_url} component={
+          <Route  path={menu.nav_url} component={
             Loadable({
               loader: () => import(`./view/${menu.nav_component}`),
               loading: PaceLoading

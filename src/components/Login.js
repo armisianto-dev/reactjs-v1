@@ -59,6 +59,7 @@ class Login extends Component {
             });
 
             if (data.values != '') {
+              this.props.history.push("/");
               this.setState({
                 alertMessage: 'Login berhasil',
                 alertType: 'success',
