@@ -1,39 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Loadable from 'react-loadable';
-import Pace from 'react-pace-progress'
+import Pace from 'react-pace-progress';
 
 import API from '../api';
-
-const RouteItem = props => {
-
-  const routePath = props.routePath
-  const routeExact = props.routeExact
-  const routeComponent = props.routeComponent;
-
-  const PaceLoading = () => <Pace color="#00b2f6" height="10" />;
-
-  if (routeExact){
-    return (
-      <Route path={routePath} exact component={
-        Loadable({
-          loader: () => import('./view/dashboard/Welcome'),
-          loading: PaceLoading
-        })
-      } />
-    );
-  }
-
-  return (
-    <Route path={routePath} component={
-      Loadable({
-        loader: () => import({routeComponent}),
-        loading: PaceLoading
-      })
-    } />
-  );
-  
-}
 
 class ContentDynamic extends Component {
 
@@ -59,7 +29,7 @@ class ContentDynamic extends Component {
 
     var { listMenu } = this.state;
 
-    const PaceLoading = () => <Pace color="#00b2f6" height="10" />;
+    const PaceLoading = () => <Pace color="#00b2f6" height="10px" />;
 
     return (
       <Switch>

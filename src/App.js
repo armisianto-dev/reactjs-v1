@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import logo from './logo.svg';
-// import './App.css';
 
-import Sidebar from './components/Sidebar';
-import Content from './components/Content';
+import Auth from './components/Login';
+
+
 
 class App extends Component {
     render() {
         return ( 
             <Router>
-            <div className="wrapper">
-                <Sidebar/>
-                <Content/>
-            </div>
+                <Auth />
+                {/* <div className="wrapper">
+                    <Sidebar/>
+                    <Content/>
+                </div> */}
             </Router>
         );
     }

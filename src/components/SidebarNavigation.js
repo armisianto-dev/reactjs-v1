@@ -99,7 +99,7 @@ class SidebarNavigation extends Component {
     return (
       <div className="sidebar" data-color="azure" data-background-color="white" data-image={sidebar_img}>
         <div className="logo text-center">
-          <a href="http://www.creative-tim.com" className="simple-text logo-normal">
+          <a href="#" className="simple-text logo-normal">
             <img src={logo} alt="Logo" width="180" />
           </a>
         </div>
