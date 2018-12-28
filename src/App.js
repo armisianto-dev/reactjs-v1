@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
-import Auth from './components/Login';
-
-
+import Sidebar from './components/Sidebar';
+import Content from './components/Content';
 
 class App extends Component {
     render() {
         return ( 
             <Router>
-                <Auth />
-                {/* <div className="wrapper">
+                <div className="wrapper">
                     <Sidebar/>
                     <Content/>
-                </div> */}
+                </div>
             </Router>
         );
     }

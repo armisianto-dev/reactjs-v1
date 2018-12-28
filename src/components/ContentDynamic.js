@@ -3,7 +3,18 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Loadable from 'react-loadable';
 import Pace from 'react-pace-progress';
 
+import Login from './components/Login';
+
 import API from '../api';
+
+function requireAuth(nextState, replace) {
+  if (!SignInStorage.isSignedin()) {
+    replace({
+      pathname:'/login',
+      state: { nextPathname: nextState.location.pathname }
+ })
+}
+}
 
 class ContentDynamic extends Component {
 
@@ -40,14 +51,16 @@ class ContentDynamic extends Component {
           })
         } />
 
+        <Route path="/login" component={Login} />
+
         {this.state.listMenu.map(menu =>
           // <RouteItem routePath={menu.nav_url} routeComponent={menu.nav_component} />
-          <Route path={menu.nav_url} component={
+          <IndexRoute  path={menu.nav_url} component={
             Loadable({
               loader: () => import(`./view/${menu.nav_component}`),
               loading: PaceLoading
             })
-          } />
+          } onEnter={requireAuth} />
         )}
       </Switch>
     );
