@@ -186,7 +186,7 @@ class NavItemChild extends Component {
 
   render() {
     return (
-      <ul className="nav">
+      <ul className="nav pl-3">
         {this.state.listMenu.map(menu =>
           <NavItem navChild={menu.total_child} navId={menu.nav_id} navTitle={menu.nav_title} navIcon={menu.nav_icon} navLink={menu.nav_url} />
         )}
