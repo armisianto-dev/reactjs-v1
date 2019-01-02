@@ -67,23 +67,25 @@ class AdminBase extends Component {
             {/* Start of dynamic content */}
             <div className="content">
               <div className="container-fluid">
-                <Route path="/login" component={LoginAdminBase} />
-                <PrivateRoute path="/" exact component={
-                  Loadable({
-                    loader: () => import('../../view/dashboard/Welcome'),
-                    loading: PaceLoading
-                  })
-                } />
-
-                {this.state.listMenu.map(menu =>
-                  // <RouteItem routePath={menu.nav_url} routeComponent={menu.nav_component} />
-                  <PrivateRoute path={menu.nav_url} component={
+                <Switch>
+                  <Route path="/login" component={LoginAdminBase} />
+                  <PrivateRoute path="/" exact component={
                     Loadable({
-                      loader: () => import(`../../view/${menu.nav_component}`),
+                      loader: () => import('../../view/dashboard/Welcome'),
                       loading: PaceLoading
                     })
                   } />
-                )}
+
+                  {this.state.listMenu.map(menu =>
+                    // <RouteItem routePath={menu.nav_url} routeComponent={menu.nav_component} />
+                    <PrivateRoute path={menu.nav_url} component={
+                      Loadable({
+                        loader: () => import(`../../view/${menu.nav_component}`),
+                        loading: PaceLoading
+                      })
+                    } />
+                  )}
+                </Switch>
               </div>
             </div>
             {/* End of dynamic content */}

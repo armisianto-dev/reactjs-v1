@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import Pace from 'react-pace-progress';
 
+import { auth } from '../../_helpers/auth';
+
 import AdminBase from './admin/AdminBase';
 import LoginAdminBase from './admin/Login';
-
-let user = JSON.parse(localStorage.getItem('user'));
-let isAuthenticated = (user) ? true : false;
 
 class Base extends Component {
 
@@ -14,12 +13,19 @@ class Base extends Component {
     super(props);
 
     this.state = {
-      isLogin: isAuthenticated
+      user: [],
+      isLogin: false
     }
   }
 
+  componentDidMount() {
+    this.setState({
+      isLogin: auth.isLogin()
+    })
+  }
+
   render() {
-    if (this.state.isLogin) return <AdminBase />
+    if (this.state.isLogin === true) return <AdminBase />
     return <LoginAdminBase />
   }
 }

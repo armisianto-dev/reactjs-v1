@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { history } from '../../../_helpers/history';
 
+import AdminBase from './AdminBase';
+
 import API from '../../../api';
 
 import logo from '../../../dist/images/logo-login.png';
@@ -15,6 +17,9 @@ var background_img_style = {
 
 };
 
+let user = JSON.parse(localStorage.getItem('user'));
+let isAuthenticated = (user) ? true : false;
+
 class Login extends Component {
 
   constructor(props){
@@ -27,7 +32,8 @@ class Login extends Component {
       alertType: '',
       alertStatus: false,
       isLoading: false,
-      submitted: false
+      submitted: false,
+      isLogin: isAuthenticated
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -83,7 +89,8 @@ class Login extends Component {
 
   render() {
     const { loggingIn } = this.props;
-    const { username, password, isLoading, submitted, alertMessage, alertStatus, alertType } = this.state;
+    const { username, password, isLoading, submitted, alertMessage, alertStatus, alertType, isLogin } = this.state;
+
     return (
       <div className="wrapper wrapper-full-page">
         <div className="page-header login-page header-filter" filter-color="black" style={background_img_style} >
