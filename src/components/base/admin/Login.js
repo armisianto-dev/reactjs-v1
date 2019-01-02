@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import API from '../api';
+import { Redirect } from 'react-router-dom';
+import { history } from '../../../_helpers/history';
 
-import logo from '../dist/images/logo-login.png';
-import user_img from '../dist/images/default-user.png';
-import background_img from '../../node_modules/bootstrap/themes/material-dashboard/img/cover.jpg';
+import API from '../../../api';
+
+import logo from '../../../dist/images/logo-login.png';
+import user_img from '../../../dist/images/default-user.png';
+import background_img from '../../../../node_modules/bootstrap/themes/material-dashboard/img/cover.jpg';
 
 var background_img_style = {
   backgroundImage: `url(${background_img})`,
@@ -59,12 +62,9 @@ class Login extends Component {
             });
 
             if (data.values != '') {
-              this.props.history.push("/");
-              this.setState({
-                alertMessage: 'Login berhasil',
-                alertType: 'success',
-                alertStatus: true
-              });
+              localStorage.setItem('user', JSON.stringify(data.values[0]));
+              history.push('/dashboard/welcome');
+
             }else{
               this.setState({
                 alertMessage: 'Username atau Password yang anda masukkan tidak ditemukan',
@@ -95,8 +95,8 @@ class Login extends Component {
                     <div className="card-header card-header-info text-center">
                       <h4 className="card-title">Login</h4>
                     </div>
-                    <div className="card-body">
-                    {/* Alert Login */}
+                    <div className="card-body pr-2 pl-2">
+                      {/* Alert Login */}
                       {alertStatus &&
                         <div className={'alert alert-' + alertType}>
                           <span>{alertMessage}</span>
@@ -131,11 +131,11 @@ class Login extends Component {
                     </div>
                     <div className="card-footer justify-content-center">
                       <button type="submit" className="btn btn-info btn-link btn-lg">
-                      {isLoading &&
+                        {isLoading &&
                           <i className="fa fa-spin fa-spinner mr-1"></i>
-                      }
-                      Sign In
-                      </button>
+                        }
+                        Sign In
+                        </button>
                     </div>
                   </div>
                 </form>

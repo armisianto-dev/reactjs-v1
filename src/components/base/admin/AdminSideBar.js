@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import API from '../api';
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { history } from '../../../_helpers/history';
+import API from '../../../api';
 
-import logo from '../dist/images/logo-login.png';
-import user_img from '../dist/images/default-user.png';
-import sidebar_img from '../../node_modules/bootstrap/themes/material-dashboard/img/sidebar-3.jpg';
+import logo from '../../../dist/images/logo-login.png';
+import user_img from '../../../dist/images/default-user.png';
+import sidebar_img from '../../../../node_modules/bootstrap/themes/material-dashboard/img/sidebar-3.jpg';
 
 var positionX = {
   left: '0px',
@@ -59,7 +60,7 @@ const NavItem = props => {
   );
 }
 
-class SidebarNavigation extends Component {
+class AdminSideBar extends Component {
 
   constructor(props) {
     super(props);
@@ -90,6 +91,12 @@ class SidebarNavigation extends Component {
       }).catch((error) => {
         console.log(error);
       })
+  }
+
+  // Log Out
+  singOut(e) {
+    localStorage.removeItem('user');
+    history.push('/login');
   }
 
   render() {
@@ -136,7 +143,7 @@ class SidebarNavigation extends Component {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-danger" href="#">
+                    <a className="nav-link text-danger" href="javascript:void(0)" onClick={this.singOut} >
                       <span className="sidebar-mini"> <i className="fa fa-sign-out-alt mr-5"></i> </span>
                       <span className="sidebar-normal"> Sign Out </span>
                     </a>
@@ -195,4 +202,4 @@ class NavItemChild extends Component {
   }
 }
 
-export default SidebarNavigation;
+export default AdminSideBar;
