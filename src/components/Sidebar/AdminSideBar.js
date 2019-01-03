@@ -139,10 +139,10 @@ class AdminSideBar extends Component {
               <div className="collapse" id="collapseExample">
                 <ul className="nav">
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <Link to="/home/profile" className="nav-link">
                       <span className="sidebar-mini"> <i className="fa fa-user mr-5"></i> </span>
                       <span className="sidebar-normal"> My Profile </span>
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="#">

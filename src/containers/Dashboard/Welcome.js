@@ -38,6 +38,9 @@ class welcome extends Component {
 
         return (
             <div className="row">
+                <div className="col-12">
+                    <h3>Dashboard</h3>
+                </div>
                 <div className="col-md-4">
                                 <div className="card card-stats">
                                     <div className="card-header card-header-info card-header-icon">

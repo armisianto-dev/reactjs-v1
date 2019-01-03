@@ -72,13 +72,21 @@ class AdminBase extends Component {
                     </nav>
                     {/* End of navbar */}
                     {/* Start of dynamic content */}
-                    <div className="content">
+                    <div className="content mt-1 pt-1">
                         <div className="container-fluid">
 
                                 <Switch>
+                                    {/* Static Link/Route */}
                                     < PrivateRoute path = "/" exact component = {
                                         Loadable({
                                             loader: () => import('../../containers/Dashboard/Welcome'),
+                                            loading: PaceLoading
+                                        })
+                                    }
+                                    />
+                                    < PrivateRoute path = "/home/profile" exact component = {
+                                        Loadable({
+                                            loader: () => import('../../containers/Home/Profile'),
                                             loading: PaceLoading
                                         })
                                     }
