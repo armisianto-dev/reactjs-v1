@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { history } from '../../../_helpers/history';
+import { Router, Redirect } from 'react-router-dom';
+import { history } from '../../utils/helpers/history';
 
-import AdminBase from './AdminBase';
+import API from '../../api';
 
-import API from '../../../api';
+import AdminBase from '../../components/Base/AdminBase';
 
-import logo from '../../../dist/images/logo-login.png';
-import user_img from '../../../dist/images/default-user.png';
-import background_img from '../../../../node_modules/bootstrap/themes/material-dashboard/img/cover.jpg';
+import logo from '../../dist/images/logo-login.png';
+import user_img from '../../dist/images/default-user.png';
+import background_img from '../../dist/images/cover.jpg';
 
 var background_img_style = {
   backgroundImage: `url(${background_img})`,
@@ -20,7 +20,7 @@ var background_img_style = {
 let user = JSON.parse(localStorage.getItem('user'));
 let isAuthenticated = (user) ? true : false;
 
-class Login extends Component {
+class AdminLogin extends Component {
 
   constructor(props){
     super(props);
@@ -69,7 +69,10 @@ class Login extends Component {
 
             if (data.values != '') {
               localStorage.setItem('user', JSON.stringify(data.values[0]));
-              history.push('/dashboard/welcome');
+              this.setState({
+                isLogin: true
+              });
+              history.push('/');
 
             }else{
               this.setState({
@@ -90,6 +93,10 @@ class Login extends Component {
   render() {
     const { loggingIn } = this.props;
     const { username, password, isLoading, submitted, alertMessage, alertStatus, alertType, isLogin } = this.state;
+
+    if(isLogin){
+      window.location.reload()
+    }
 
     return (
       <div className="wrapper wrapper-full-page">
@@ -155,4 +162,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default AdminLogin;

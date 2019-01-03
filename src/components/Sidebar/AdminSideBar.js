@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import { history } from '../../../_helpers/history';
-import API from '../../../api';
+import { history } from '../../utils/helpers/history';
+import API from '../../api';
 
-import logo from '../../../dist/images/logo-login.png';
-import user_img from '../../../dist/images/default-user.png';
-import sidebar_img from '../../../../node_modules/bootstrap/themes/material-dashboard/img/sidebar-3.jpg';
+import logo from '../../dist/images/logo-login.png';
+import user_img from '../../dist/images/default-user.png';
+import sidebar_img from '../../dist/images/sidebar-3.jpg';
 
 var positionX = {
   left: '0px',
@@ -68,8 +68,11 @@ class AdminSideBar extends Component {
       userImg: '',
       user: [],
       listMenu: [],
-      childMenu: []
+      childMenu: [],
+      isLogin: true
     }
+
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -94,14 +97,21 @@ class AdminSideBar extends Component {
   }
 
   // Log Out
-  singOut(e) {
+  handleSignOut(e) {
+    e.preventDefault();
+
     localStorage.removeItem('user');
-    history.push('/login');
+    this.setState({ isLogin: false  });
+    history.push('/auth/login');
   }
 
   render() {
 
-    var { listMenu, user, userImg } = this.state;
+    var { listMenu, user, userImg, isLogin } = this.state;
+    
+    if(!isLogin){
+      window.location.reload()
+    }
 
     return (
       <div className="sidebar" data-color="azure" data-background-color="white" data-image={sidebar_img}>
@@ -143,7 +153,7 @@ class AdminSideBar extends Component {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link text-danger" href="javascript:void(0)" onClick={this.singOut} >
+                    <a className="nav-link text-danger" href="javascript:void(0)" onClick={this.handleSignOut} >
                       <span className="sidebar-mini"> <i className="fa fa-sign-out-alt mr-5"></i> </span>
                       <span className="sidebar-normal"> Sign Out </span>
                     </a>
@@ -153,9 +163,9 @@ class AdminSideBar extends Component {
             </div>
           </div>
           <ul className="nav">
-            {this.state.listMenu.map(menu =>
-              <NavItem navChild={menu.total_child} navId={menu.nav_id} navTitle={menu.nav_title} navIcon={menu.nav_icon} navLink={menu.nav_url} />
-            )}
+              {this.state.listMenu.map(menu =>
+                <NavItem navChild={menu.total_child} navId={menu.nav_id} navTitle={menu.nav_title} navIcon={menu.nav_icon} navLink={menu.nav_url} />
+              )}
           </ul>
           <div className="ps-scrollbar-x-rail" style={positionX}>
             <div className="ps-scrollbar-x" tabindex="0" style={positionX}>
