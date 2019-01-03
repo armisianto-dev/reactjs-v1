@@ -14,8 +14,8 @@ import Pace from 'react-pace-progress';
 
 import SidebarNav from '../../components/Sidebar/AdminSideBar';
 
-let user = JSON.parse(localStorage.getItem('user'));
-let isAuthenticated = (user) ? true : false;
+const user = JSON.parse(localStorage.getItem('user'));
+const isAuthenticated = (user) ? true : false;
 
 const PrivateRoute = ({
     component: Component,
@@ -35,13 +35,14 @@ class AdminBase extends Component {
         super(props);
 
         this.state = {
+            user: user,
             listMenu: [],
             isLogin: isAuthenticated
         }
     }
 
     componentDidMount() {
-        API.get('staff-base/list_menu_all_child/134')
+        API.get(`staff-base/list_menu_all_child/${user.user_id}`)
             .then(response => {
                 const data = response.data;
                 this.setState({

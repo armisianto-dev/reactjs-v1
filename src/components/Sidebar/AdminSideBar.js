@@ -21,6 +21,9 @@ var sidebar_background = {
   backgroundImage: `url(${sidebar_img})`
 };
 
+const user = JSON.parse(localStorage.getItem('user'));
+const isAuthenticated = (user) ? true : false;
+
 const NavItem = props => {
 
   const pageURI = window.location.pathname + window.location.search
@@ -66,7 +69,8 @@ class AdminSideBar extends Component {
     super(props);
     this.state = {
       userImg: '',
-      user: [],
+      user_id: user.user_id,
+      user: user,
       listMenu: [],
       childMenu: [],
       isLogin: true
@@ -76,7 +80,7 @@ class AdminSideBar extends Component {
   }
 
   componentDidMount() {
-    API.get('staff-base/list_menu/134/0')
+    API.get(`staff-base/list_menu/${user.user_id}/0`)
       .then(response => {
         const data = response.data;
         this.setState({
@@ -84,7 +88,7 @@ class AdminSideBar extends Component {
         })
       })
 
-    API.get('users/134')
+    API.get(`users/${user.user_id}`)
       .then(response => {
         const data = response.data;
         this.setState({
